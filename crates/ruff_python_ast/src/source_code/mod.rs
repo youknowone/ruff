@@ -218,11 +218,18 @@ impl PartialEq for SourceFileInner {
 
 impl Eq for SourceFileInner {}
 
-#[derive(Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
+#[derive(Copy, Clone, Eq, PartialEq, Ord, PartialOrd, Hash)]
 #[cfg_attr(feature = "serde", derive(Serialize, Deserialize))]
 pub struct SourceLocation {
     pub row: OneIndexed,
     pub column: OneIndexed,
+}
+
+impl SourceLocation {
+    pub const MIN: Self = Self {
+        row: OneIndexed::MIN,
+        column: OneIndexed::MIN,
+    };
 }
 
 impl Debug for SourceLocation {
